@@ -1,56 +1,55 @@
 import 'package:flutter/material.dart';
 
+import 'changename.dart';
+import 'drawer.dart';
+
 void main() {
-  runApp(MaterialApp(
-    title: "Awesome app",
-    home: HomePage(),
-    color: Colors.red,
-  ));
+  runApp(
+    MaterialApp(
+      title: "Awesome app",
+      home: HomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+      ),
+    ),
+  );
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  TextEditingController _nameController = TextEditingController();
+  var myText = "Change Me";
+  @override
+  void initState() {
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Awesome app"),
+      backgroundColor: Colors.grey[200],
+      appBar: AppBar(
+        title: Text("Awesome app"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Card(
+            child: Newwidget(myText: myText, nameController: _nameController),
+          ),
         ),
-        body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                color: Colors.black,
-                width: 200,
-                height: 400,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        width: 100,
-                        height: 100,
-                        color: Colors.green,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        width: 100,
-                        height: 100,
-                        color: Colors.yellow,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        width: 100,
-                        height: 100,
-                        color: Colors.red,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            )));
+      ),
+      drawer: MyDrawer(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          myText = _nameController.text;
+          setState(() {});
+        },
+        child: Icon(Icons.refresh),
+      ),
+    );
   }
 }
